@@ -5,68 +5,79 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="<link rel=" stylesheet " href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css ">
     <title>To Do list</title>
 </head>
 
 <body>
 
     <header>
+
         <% if (task == null){ %>
-            <form action="/create" method="post">
-                <input type="text" name="task" id="task" placeholder="Insira uma tarefa">
-                <button id="addButton" type="submit">Adicionar</button>
+            <h1>TO DO LIST</h1>
+            <form action="/create " method="post ">
+                <input type="text " name="task " id="task " placeholder="Insira uma tarefa ">
+                <button id="addButton " type="submit ">Adicionar</button>
             </form>
             <% } else { %>
+                <h1>EDITAR TAREFA</h1>
 
-                <form action="/updateOne/<%= task._id %>" method="post">
-                    <input type="text" name="task" id="task" value=" <%= task.task %>">
-                    <button id="addButton" type="submit">Atualizar</button>
-                </form>
-                <% } %>
+                <form action="/updateOne/<%=t ask._id %>" method="post">
+    <input type="text" name="task" id="task" value=" <%= task.task %>">
+    <button id="updateButton" type="submit">Atualizar</button>
+    </form>
+    <% } %>
 
-    </header>
+        </header>
 
-    <section id="tasks">
+        <section id="tasks">
 
-        <ul>
+            <ul>
 
-            <% tasksList.forEach((task) =>{%>
+                <% tasksList.forEach((task) =>{%>
 
-                <li>
-                    <%= task.task %> |
-                        <%= task.date.toLocaleDateString('pt-BR') %>
-                            <a href="/getById/<%= task._id %>/update">Editar</a>
-                            <a href="/getById/<%= task._id %>/delete">Apagar</a>
-                            < </li>
+                    <li>
 
-                                <% }) %>
+                        <a href="/">
+                            <%= task.task %>
+                                <span>
+                                    <%=t ask.date.toLocaleDateString( 'pt-BR') %></span>
+                        </a>
 
-        </ul>
-    </section>
+                        <div>
+                            <a href="/getById/<%= task._id %>/update"><i class="bi bi-pencil-square"></i></a>
+                            <a href="/getById/<%= task._id %>/delete"><i class="bi bi-trash"></i></a>
+                        </div>
 
-    <% if (taskDelete != null) { %>
+                    </li>
 
-        <section id="modal">
-            <div id="card">
-
-                <a href="/">x</a>
-                <h2>Confirmação
-                </h2>
-                <hr>
-                <p>Deseja realment apagar a tarefa:
-                    <%= taskDelete.task %>?
-                </p>
-                <a href="/">Não</a>
-                <a href="/deleteOne/<%= taskDelete._id %>">Sim</a>
-
-            </div>
+                    <% }) %>
+            </ul>
         </section>
-        <% } %>
 
-            <script src="script.js">
-            </script>
+        <% if (taskDelete != null) { %>
 
-</body>
+            <section id="modal">
+                <div id="card">
+
+                    <a href="/">x</a>
+                    <h2>Confirmação
+                    </h2>
+                    <hr>
+                    <p>Deseja realment apagar a tarefa:
+                        <%= taskDelete.task %>?
+                    </p>
+                    <a href="/">Não</a>
+                    <a href="/deleteOne/<%= taskDelete._id %>">Sim</a>
+
+                </div>
+            </section>
+            <% } %>
+
+                <script src="script.js">
+                </script>
+
+                </body>
 
 </html>
