@@ -32,6 +32,7 @@ const createTask = async(req, res) => {
 const getById = async(req, res) => {
 
     try {
+
         const tasksList = await Task.find();
         if (req.params.method == "update ") {
             const task = await Task.findOne({ _id: req.params.id });
@@ -64,7 +65,7 @@ const deleteOneTask = async(req, res) => {
     } catch (err) {
         res.status(500).send({ error: err.message });
     }
-}
+};
 
 
 

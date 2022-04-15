@@ -46,6 +46,8 @@
                         </a>
 
                         <span>criado em <%= task.date.toLocaleDateString( 'pt-BR') %></span>
+
+
                     </div>
 
                     <div>
@@ -63,16 +65,19 @@
 
         <section id="modal">
             <div id="card">
+                <div id="head">
+                    <h2>Confirmação</h2>
+                    <a id="close" href="/"><i class="bi bi-x-"></i></a>
+                </div>
 
-                <a href="/">x</a>
-                <h2>Confirmação
-                </h2>
                 <hr>
                 <p>Deseja realment apagar a tarefa:
                     <%= taskDelete.task %>?
                 </p>
-                <a href="/">Não</a>
-                <a href="/deleteOne/<%= taskDelete._id %>">Sim</a>
+                <div id="btns">
+                    <a id="btnNot" href="/ ">Não</a>
+                    <a id="btnYes" href=" /deleteOne/<%=t askDelete._id %>">Sim</a>
+                </div>>
 
             </div>
         </section>
