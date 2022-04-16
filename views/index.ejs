@@ -2,13 +2,12 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css ">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css " />
     <title>To Do List</title>
-
 </head>
 
 <body>
@@ -22,49 +21,37 @@
         </section>
         <% } %>
             <header>
-
                 <% if (task == null){ %>
-                    <h1>TO DO LIST</h1>
-                    <form action="/create" method="post ">
+                    <%- include('./components/form',{titleForm:" TO
+      DO LIST ",
+      action:"create",value:"",idBtn:"addButton",nameBtn:"Adicionar"})%>
+                        <%}else{ %>
 
-                        <input type="text " name="task " id="task " placeholder="Insira uma tarefa ">
-                        </input>
-                        <button id="addButton " type="submit ">Adicionar</button>
-                    </form>
-                    <% } else { %>
-                        <h1>EDITAR TAREFA</h1>
-
-                        <form action="/updateOne/<%=task._id %>" method="post">
-                            <input type="text" name="task" id="task" value=" <%= task.task %>"> </input>
-                            <button id="updateButton" type="submit">Atualizar</button>
-                        </form>
-                        <% } %>
-
+                            <%- include('./components/form',{titleForm: "EDITAR TAREFA ",
+      action:"/updateOne/ + task._id,value: task.task
+      ,idBtn:"updateButton",nameBtn:"Atualizar"})%>
+                                <% } %>
             </header>
 
             <section id="tasks">
-
                 <ul>
-
                     <% tasksList.forEach((task) => { %>
 
                         <li class="check-<%= task.check %>">
                             <div>
-
                                 <a href="/check/<%= task._id %>" class="check-<%= task.check %>">
                                     <%= task.task %>
                                 </a>
 
                                 <span>criado em <%= task.date.toLocaleDateString( 'pt-BR') %></span>
-
-
                             </div>
 
                             <div>
-                                <a class="btnUpdate" href="/getById/<%= task._id %>/update"><i class="bi bi-pencil-square"></i></a>
-                                <a class="btnDelete" href="/getById/<%= task._id %>/delete"><i class="bi bi-trash"></i></a>
+                                <a class="btnUpdate" href="/getById/<%= task._id %>/update"><i class="bi bi-pencil-square"></i
+            ></a>
+                                <a class="btnDelete" href="/getById/<%= task._id %>/delete"><i class="bi bi-trash"></i
+            ></a>
                             </div>
-
                         </li>
 
                         <% }) %>
@@ -72,30 +59,11 @@
             </section>
 
             <% if (taskDelete != null) { %>
+                <%-
+    include('./components/modalDel',{task:taskDelete}) %>
+                    <% } %>
 
-                <section id="modal">
-                    <div id="card">
-                        <div id="head">
-                            <h2>Confirmação</h2>
-                            <a id="close" href="/"><i class="bi bi-x-"></i></a>
-                        </div>
-
-                        <hr>
-                        <p>Deseja realment apagar a tarefa:
-                            <%= taskDelete.task %>?
-                        </p>
-                        <div id="btns">
-                            <a id="btnNot" href="/ ">Não</a>
-                            <a id="btnYes" href=" /deleteOne/<%=t askDelete._id %>">Sim</a>
-                        </div>>
-
-                    </div>
-                </section>
-                <% } %>
-
-                    <script src="script.js">
-                    </script>
-
+                        <script src="script.js"></script>
 </body>
 
 </html>
