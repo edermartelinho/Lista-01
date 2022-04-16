@@ -2,68 +2,56 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css " />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <title>To Do List</title>
 </head>
 
 <body>
-    <% if(message != "") {%>
 
-        <section class="message message-<%= type %>">
-            <p>
-                <%= message %>
-            </p>
-            <span id="close-message"><i class="bi bi-x-"></i></span>
-        </section>
-        <% } %>
-            <header>
-                <% if (task == null){ %>
-                    <%- include('./components/form',{titleForm:" TO
-      DO LIST ",
-      action:"create",value:"",idBtn:"addButton",nameBtn:"Adicionar"})%>
-                        <%}else{ %>
+    <% if (message != "") {%>
+        <%- include('./components/messages', {message: message, type: type})  %>
+            <% } %>
 
-                            <%- include('./components/form',{titleForm: "EDITAR TAREFA ",
-      action:"/updateOne/ + task._id,value: task.task
-      ,idBtn:"updateButton",nameBtn:"Atualizar"})%>
-                                <% } %>
-            </header>
+                <header>
 
-            <section id="tasks">
-                <ul>
-                    <% tasksList.forEach((task) => { %>
+                    <% if (task==null) { %>
+                        <%- include('./components/form', {titleForm: "TO DO LIST", action: "create", value: "", idBtn: "addButton", nameBtn: "Adicionar"})%>
+                            <% } else { %>
+                                <%- include('./components/form', {titleForm: "EDITAR TAREFA", action: `updateOne/${task._id}`, value: task.task, idBtn: "updateButton", nameBtn: "Atualizar"}) %>
+                                    <% } %>
 
-                        <li class="check-<%= task.check %>">
-                            <div>
-                                <a href="/check/<%= task._id %>" class="check-<%= task.check %>">
-                                    <%= task.task %>
-                                </a>
+                </header>
 
-                                <span>criado em <%= task.date.toLocaleDateString( 'pt-BR') %></span>
-                            </div>
+                <section id="tasks">
+                    <ul>
+                        <% tasksList.forEach((task)=>{ %>
+                            <li class="check-<%= task.check %>">
+                                <div>
+                                    <a href="/check/<%= task._id %>" class="check-<%= task.check %>">
+                                        <%= task.task %>
+                                    </a>
+                                    <span>Criado em <%= task.date.toLocaleDateString('pt-BR') %></span>
+                                </div>
 
-                            <div>
-                                <a class="btnUpdate" href="/getById/<%= task._id %>/update"><i class="bi bi-pencil-square"></i
-            ></a>
-                                <a class="btnDelete" href="/getById/<%= task._id %>/delete"><i class="bi bi-trash"></i
-            ></a>
-                            </div>
-                        </li>
+                                <div>
+                                    <a class="btnUpdate" href="/getById/<%= task._id %>/update"><i class="bi bi-pencil-square"></i></a>
+                                    <a class="btnDelete" href="/getById/<%= task._id %>/delete"><i class="bi bi-trash"></i></a>
+                                </div>
+                            </li>
+                            <% }) %>
+                    </ul>
+                </section>
 
-                        <% }) %>
-                </ul>
-            </section>
+                <% if (taskDelete !=null) { %>
+                    <%- include('./components/modalDel', {task: taskDelete})  %>
+                        <% } %>
 
-            <% if (taskDelete != null) { %>
-                <%-
-    include('./components/modalDel',{task:taskDelete}) %>
-                    <% } %>
 
-                        <script src="script.js"></script>
+                            <script src="script.js"></script>
 </body>
 
 </html>
