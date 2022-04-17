@@ -38,7 +38,7 @@ const createTask = async(req, res) => {
     } catch (err) {
         res.status(500).send({ error: err.message });
     }
-};
+}
 
 const getById = async(req, res) => {
     try {
