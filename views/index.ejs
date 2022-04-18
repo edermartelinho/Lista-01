@@ -11,6 +11,8 @@
 </head>
 
 <body>
+
+
     <%if(message !=""){%>
         <section class="message message- <%= type %>">
             <p>
@@ -21,23 +23,28 @@
         <% } %>
 
             <header>
-                <%if(task==null) {%>
 
-                    <h1>
-                        TO DO LIST
-                    </h1>
+                <%if(task==null) {%>
+                    <h1>TO DO LIST</h1>
                     <form action="/create" method="post">
-                        <input type="text" name="task" id="task" placeholder="Insira uma tarefa"><button id="addButton" type="submit">Adicionar</button>
+                        <input type="text" name="task" id="task" placeholder="Insira uma tarefa">
+                        <button id="addButton " type="submit">
+                        Adicionar
+                            </button>
                     </form>
 
-                    <%}else{ %>
+                    <% } else { %>
                         <h1>EDITAR TAREFA</h1>
-                        <form action="/updateOne/<%=task._id%>" method="post">
-                            <input type="text" name="task" id="task" value="<%=task.task %>">
-                            <button id=" updateButton" type="submit">Atualizar</button>
+                        <form action="/updateOne/<%=task._id %>" method="post">
+                            <input type="text" name="task" id="task" ,value="<%= task.task%>">
+                            </input>
+                            <button id="updateButton" type="submit">Atualizar</button>
                         </form>
 
-                        <%}%>
+                        <% } %>
+
+
+
 
             </header>
 
@@ -64,7 +71,8 @@
             </section>
 
             <% if (taskDelete !=null) { %>
-                <%- include('./components/modalDel')%>
+                <%- include('./components/modalDel',{task:
+    taskDelete})%>
                     <% } %>
 
                         <script src="script.js"></script>
